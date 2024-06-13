@@ -1,11 +1,8 @@
---Goal: A table showing weekly averages and total counts, including location and geo information.
-
 WITH joining_day_location AS (
         SELECT * FROM {{ref('prep_forecast_day')}}
         LEFT JOIN {{ref('staging_location')}}
         USING(city,region,country)
 ),
-
 filtering_features AS (
         SELECT 
             year_and_week
@@ -43,20 +40,18 @@ filtering_features AS (
             -- ,month_of_year
             -- ,day_of_week
         FROM joining_day_location
-	),
-
-	aggregations_adding_features AS (
-	
-	SELECT 
+),          
+aggregations_adding_features AS (
+        SELECT 
             year_and_week  -- grouping on
             ,week_of_year   -- grouping on
             ,year           -- grouping on
             ,city           -- grouping on
-            --,region         -- grouping on
-            --,country        -- grouping on
-            --,lat            -- grouping on
-            --,lon            -- grouping on
-            --,timezone_id    -- grouping on
+            ,region         -- grouping on
+            ,country        -- grouping on
+            ,lat            -- grouping on
+            ,lon            -- grouping on
+            ,timezone_id    -- grouping on
             ,MAX(max_temp_c) AS max_temp_c
             ,MIN(min_temp_c) AS min_temp_c
             ,AVG(avg_temp_c) AS avg_temp_c
@@ -89,10 +84,8 @@ filtering_features AS (
                             'Patchy sleet possible', 'Ice pellets') 
                             THEN 1 ELSE 0 END) AS snowy_days
     FROM filtering_features
-    GROUP BY (year_and_week, week_of_year, year, city)
-    ORDER BY city,week_of_year
-
-	),
-
-SELECT * FROM aggregations_adding_features
-
+    GROUP BY (year_and_week, week_of_year, year, city, region, country, lat, lon, timezone_id)
+    ORDER BY city
+)
+SELECT * 
+FROM aggregations_adding_features
