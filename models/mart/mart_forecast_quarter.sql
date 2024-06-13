@@ -17,26 +17,26 @@ SELECT
 	,lon
 	,timezone_id
 	,CASE 
-		WHEN date BETWEEN '2023-07-01' AND '2023-09-30' THEN 'Q3'
-		WHEN date BETWEEN '2023-10-01' AND '2023-12-31'  THEN 'Q4'
-		WHEN date BETWEEN '2024-01-01' AND '2024-03-30'  THEN 'Q1'
-		ELSE 'Q2'
+		WHEN month_of_year IN ('January', 'February', 'March') THEN 'Q1'
+		WHEN month_of_year IN ('April', 'May', 'June') THEN 'Q2'
+		WHEN month_of_year IN ('July', 'August', 'September') THEN 'Q3'
+		ELSE 'Q4'
 		END
 	 AS quarter
 	
-	,MAX(max_temp_c) AS max_temp_c_m
-	,MIN(min_temp_c) AS min_temp_c_m
-	,AVG(avg_temp_c) AS avg_temp_c_m
-	,SUM(total_precip_mm) AS total_precip_mm_m
-	,SUM(total_snow_cm) AS total_snow_cm_m
-	,AVG(avg_vis_km) AS avg_vis_km_m
-	,AVG(avg_humidity) AS avg_humidity_m
-	,SUM(daily_will_it_rain) AS monthly_will_rain_days
-	,SUM(daily_will_it_snow) AS monthly_will_snow_days
-	,AVG(daily_chance_of_rain) AS avg_chance_rain_m
-	,AVG(daily_chance_of_snow) AS avg_chance_snow_m
-	,AVG(uv) AS avg_uv_m
-	,AVG(moon_illumination) AS avg_moon_illumination_m
+	,MAX(max_temp_c) AS max_temp_c_q
+	,MIN(min_temp_c) AS min_temp_c_q
+	,AVG(avg_temp_c) AS avg_temp_c_q
+	,SUM(total_precip_mm) AS total_precip_mm_q
+	,SUM(total_snow_cm) AS total_snow_cm_q
+	,AVG(avg_vis_km) AS avg_vis_km_q
+	,AVG(avg_humidity) AS avg_humidity_q
+	,SUM(daily_will_it_rain) AS quarterly_will_rain_days
+	,SUM(daily_will_it_snow) AS quarterly_will_snow_days
+	,AVG(daily_chance_of_rain) AS avg_chance_rain_q
+	,AVG(daily_chance_of_snow) AS avg_chance_snow_q
+	,AVG(uv) AS avg_uv_q
+	,AVG(moon_illumination) AS avg_moon_illumination_q
 	,SUM(CASE 
 			WHEN condition_text = 'Sunny' THEN 1
 			ELSE 0
