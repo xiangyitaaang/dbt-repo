@@ -8,6 +8,7 @@ USING (city,region,country)
 ,
 	
     weekly_conditions AS (
+
 SELECT 
 	city
 	,region
