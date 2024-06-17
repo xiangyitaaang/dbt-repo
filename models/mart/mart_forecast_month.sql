@@ -71,6 +71,8 @@ GROUP BY city
 	,timezone_id
 	,year
 	,month_of_year
+	,month_of_year_n
+
 	)
 
 SELECT * FROM monthly_conditions
