@@ -18,6 +18,7 @@ SELECT
 	,timezone_id
 	,year
 	,month_of_year
+	,month_of_year_n
 	
 	,MAX(max_temp_c) AS max_temp_c_m
 	,MIN(min_temp_c) AS min_temp_c_m
